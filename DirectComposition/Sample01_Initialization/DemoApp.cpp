@@ -152,7 +152,7 @@ HRESULT DemoApp::InitializeDirectCompositionDevice()
 
     return hr;
 }
-#pragma warning(push)
+#pragma warning(pop)
 
 HRESULT DemoApp::CreateResources()
 {
