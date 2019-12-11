@@ -2,15 +2,19 @@
 #include "framework.h"
 #include "DemoApp.h"
 
-static LPCWSTR g_pszWndClassName = L"Sample02_SimpleVisualTree";
-
 #define ImageWidth   150.f
 #define ImageHeight  100.f
 #define ImageGap     20.f
 
-DemoApp::DemoApp(HINSTANCE hInstance)
-    : m_hInstance(hInstance)
-    , m_hWnd(NULL)
+WCHAR DemoApp::m_szClassName[MAX_PATH]{};
+WCHAR DemoApp::m_szTitle[MAX_PATH]{};
+
+HINSTANCE DemoApp::m_hInstance{};
+HICON DemoApp::m_hiconDefault{};
+HICON DemoApp::m_hiconSmall{};
+
+DemoApp::DemoApp()
+    : m_hWnd(NULL)
     , m_hBitmaps{ NULL }
     , m_xOffset(ImageGap)
     , m_yOffset(ImageGap)
@@ -35,9 +39,9 @@ HRESULT DemoApp::Initialize()
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);;
     wcex.lpszMenuName = nullptr;
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.lpszClassName = g_pszWndClassName;
-    wcex.hIcon = LoadIcon(m_hInstance, MAKEINTRESOURCE(IDI_SAMPLE02SIMPLEVISUALTREE));
-    wcex.hIconSm = LoadIcon(m_hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.lpszClassName = m_szClassName;
+    wcex.hIcon = m_hiconDefault;
+    wcex.hIconSm = m_hiconSmall;
 
     RegisterClassEx(&wcex);
 
@@ -56,8 +60,8 @@ HRESULT DemoApp::Initialize()
     }
 
     m_hWnd = ::CreateWindow(
-        g_pszWndClassName,
-        L"DirectComposition Demo Application",
+        m_szClassName,
+        m_szTitle,
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,

@@ -15,7 +15,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HeapSetInformation(NULL, HeapEnableTerminationOnCorruption, NULL, 0);
     if (SUCCEEDED(::CoInitialize(NULL)))
     {
-        DemoApp app(hInstance);
+        DemoApp::GlobalInit(hInstance);
+        DemoApp app;
 
         if (SUCCEEDED(app.Initialize()))
         {

@@ -2,14 +2,18 @@
 #include "framework.h"
 #include "DemoApp.h"
 
-static LPCWSTR g_pszWndClassName = L"Sample04_Transform2D";
-
 #define IMAGE_WIDTH     100
 #define IMAGE_HEIGHT    66
 
-DemoApp::DemoApp(HINSTANCE hInstance)
-    : m_hInstance(hInstance)
-    , m_hWnd(NULL)
+WCHAR DemoApp::m_szClassName[MAX_PATH]{};
+WCHAR DemoApp::m_szTitle[MAX_PATH]{};
+
+HINSTANCE DemoApp::m_hInstance{};
+HICON DemoApp::m_hiconDefault{};
+HICON DemoApp::m_hiconSmall{};
+
+DemoApp::DemoApp()
+    : m_hWnd(NULL)
     , m_hBitmap(NULL)
     , m_xOffset(10)
     , m_yOffset(10)
@@ -24,6 +28,7 @@ DemoApp::~DemoApp()
 HRESULT DemoApp::Initialize()
 {
     HRESULT hr = S_OK;
+
     // Register the window class.
     WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
     wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -34,11 +39,9 @@ HRESULT DemoApp::Initialize()
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);;
     wcex.lpszMenuName = nullptr;
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.lpszClassName = g_pszWndClassName;
-    wcex.hIcon = LoadIcon(m_hInstance, MAKEINTRESOURCE(IDC_SAMPLE04TRANSFORM2D));
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-
+    wcex.lpszClassName = m_szClassName;
+    wcex.hIcon = m_hiconDefault;
+    wcex.hIconSm = m_hiconSmall;
 
     RegisterClassEx(&wcex);
 
@@ -57,8 +60,8 @@ HRESULT DemoApp::Initialize()
     }
 
     m_hWnd = ::CreateWindow(
-        g_pszWndClassName,
-        L"DirectComposition Demo Application",
+        m_szClassName,
+        m_szTitle,
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
@@ -92,6 +95,7 @@ HRESULT DemoApp::Initialize()
     }
 
     return hr;
+
 }
 
 void DemoApp::RunMessageLoop()

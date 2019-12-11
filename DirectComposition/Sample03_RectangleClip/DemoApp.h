@@ -3,7 +3,26 @@
 class DemoApp
 {
 public:
-    DemoApp(HINSTANCE hInstance);
+    static WCHAR m_szClassName[MAX_PATH];
+    static WCHAR m_szTitle[MAX_PATH];
+
+    static HINSTANCE    m_hInstance;
+    static HICON        m_hiconDefault;
+    static HICON        m_hiconSmall;
+
+    static void GlobalInit(HINSTANCE hInstance)
+    {
+        m_hInstance = hInstance;
+
+        ::LoadStringW(m_hInstance, IDC_CLASSNAME, m_szClassName, MAX_PATH);
+        ::LoadStringW(m_hInstance, IDS_APP_TITLE, m_szTitle, MAX_PATH);
+
+        m_hiconDefault = ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(IDI_DEFAULT));
+        m_hiconSmall = ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(IDI_SMALL));
+    }
+
+public:
+    DemoApp();
     ~DemoApp();
 
     HRESULT Initialize();
@@ -38,7 +57,6 @@ private:
     );
 
 private:
-    HINSTANCE m_hInstance;
     HWND m_hWnd;
     HBITMAP m_hBitmap;
 

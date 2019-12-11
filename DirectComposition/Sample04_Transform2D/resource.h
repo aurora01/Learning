@@ -5,12 +5,9 @@
 #define IDC_MYICON                      2
 #define IDD_SAMPLE04TRANSFORM2D_DIALOG  102
 #define IDS_APP_TITLE                   103
-#define IDD_ABOUTBOX                    103
-#define IDM_ABOUT                       104
-#define IDM_EXIT                        105
-#define IDI_SAMPLE04TRANSFORM2D         107
+#define IDI_DEFAULT                     107
 #define IDI_SMALL                       108
-#define IDC_SAMPLE04TRANSFORM2D         109
+#define IDC_CLASSNAME                   109
 #define IDR_MAINFRAME                   128
 #define IDB_BITMAP1                     129
 #define IDC_STATIC                      -1
