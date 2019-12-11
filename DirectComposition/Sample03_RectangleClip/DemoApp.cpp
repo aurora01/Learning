@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "DemoApp.h"
 
-static LPCWSTR g_pszWndClassName = L"Sample01_Initialization";
+static LPCWSTR g_pszWndClassName = L"Sample03_RectangleClip";
 
 DemoApp::DemoApp(HINSTANCE hInstance)
     : m_hInstance(hInstance)
