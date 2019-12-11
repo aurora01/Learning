@@ -5,22 +5,22 @@
 class DemoApp
 {
 public:
-    static WCHAR m_szClassName[MAX_PATH];
-    static WCHAR m_szTitle[MAX_PATH];
+    static WCHAR s_szClassName[MAX_PATH];
+    static WCHAR s_szTitle[MAX_PATH];
 
-    static HINSTANCE    m_hInstance;
-    static HICON        m_hiconDefault;
-    static HICON        m_hiconSmall;
+    static HINSTANCE    s_hInstance;
+    static HICON        s_hiconDefault;
+    static HICON        s_hiconSmall;
 
     static void GlobalInit(HINSTANCE hInstance)
     {
-        m_hInstance = hInstance;
+        s_hInstance = hInstance;
 
-        ::LoadStringW(m_hInstance, IDC_CLASSNAME, m_szClassName, MAX_PATH);
-        ::LoadStringW(m_hInstance, IDS_APP_TITLE, m_szTitle, MAX_PATH);
+        ::LoadStringW(s_hInstance, IDC_CLASSNAME, s_szClassName, MAX_PATH);
+        ::LoadStringW(s_hInstance, IDS_APP_TITLE, s_szTitle, MAX_PATH);
 
-        m_hiconDefault = ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(IDI_DEFAULT));
-        m_hiconSmall = ::LoadIconW(m_hInstance, MAKEINTRESOURCEW(IDI_SMALL));
+        s_hiconDefault = ::LoadIconW(s_hInstance, MAKEINTRESOURCEW(IDI_DEFAULT));
+        s_hiconSmall = ::LoadIconW(s_hInstance, MAKEINTRESOURCEW(IDI_SMALL));
     }
 
 public:

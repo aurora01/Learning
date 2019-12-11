@@ -5,12 +5,12 @@
 #define IMAGE_WIDTH     300
 #define IMAGE_HEIGHT    200
 
-WCHAR DemoApp::m_szClassName[MAX_PATH]{};
-WCHAR DemoApp::m_szTitle[MAX_PATH]{};
+WCHAR DemoApp::s_szClassName[MAX_PATH]{};
+WCHAR DemoApp::s_szTitle[MAX_PATH]{};
 
-HINSTANCE DemoApp::m_hInstance{};
-HICON DemoApp::m_hiconDefault{};
-HICON DemoApp::m_hiconSmall{};
+HINSTANCE DemoApp::s_hInstance{};
+HICON DemoApp::s_hiconDefault{};
+HICON DemoApp::s_hiconSmall{};
 
 DemoApp::DemoApp()
     : m_hWnd(NULL)
@@ -37,13 +37,13 @@ HRESULT DemoApp::Initialize()
     wcex.lpfnWndProc = DemoApp::Static_WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = sizeof(LONG_PTR);
-    wcex.hInstance = m_hInstance;
+    wcex.hInstance = s_hInstance;
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);;
     wcex.lpszMenuName = nullptr;
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.lpszClassName = m_szClassName;
-    wcex.hIcon = m_hiconDefault;
-    wcex.hIconSm = m_hiconSmall;
+    wcex.lpszClassName = s_szClassName;
+    wcex.hIcon = s_hiconDefault;
+    wcex.hIconSm = s_hiconSmall;
 
     RegisterClassEx(&wcex);
 
@@ -62,8 +62,8 @@ HRESULT DemoApp::Initialize()
     }
 
     m_hWnd = ::CreateWindow(
-        m_szClassName,
-        m_szTitle,
+        s_szClassName,
+        s_szTitle,
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
@@ -71,7 +71,7 @@ HRESULT DemoApp::Initialize()
         static_cast<UINT>(ceil(480.f * dpiY / 96.f)),
         NULL,
         NULL,
-        m_hInstance,
+        s_hInstance,
         this
     );
 
@@ -180,7 +180,7 @@ void DemoApp::DiscardResources()
 
 HRESULT DemoApp::LoadResourceGDIBitmap(PCWSTR resourceName, HBITMAP& hbmp)
 {
-    hbmp = static_cast<HBITMAP>(::LoadImageW(m_hInstance, resourceName, IMAGE_BITMAP, IMAGE_WIDTH, IMAGE_HEIGHT, LR_DEFAULTCOLOR));
+    hbmp = static_cast<HBITMAP>(::LoadImageW(s_hInstance, resourceName, IMAGE_BITMAP, IMAGE_WIDTH, IMAGE_HEIGHT, LR_DEFAULTCOLOR));
 
     return hbmp ? S_OK : E_FAIL;
 }
