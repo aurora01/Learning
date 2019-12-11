@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample03_RectangleClip", "S
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample04_Transform2D", "Sample04_Transform2D\Sample04_Transform2D.vcxproj", "{71413F29-803D-4142-BDD1-2A5A4DCCB3EB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample05_ApplyEffects", "Sample05_ApplyEffects\Sample05_ApplyEffects.vcxproj", "{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{71413F29-803D-4142-BDD1-2A5A4DCCB3EB}.Release|x64.Build.0 = Release|x64
 		{71413F29-803D-4142-BDD1-2A5A4DCCB3EB}.Release|x86.ActiveCfg = Release|Win32
 		{71413F29-803D-4142-BDD1-2A5A4DCCB3EB}.Release|x86.Build.0 = Release|Win32
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Debug|x64.ActiveCfg = Debug|x64
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Debug|x64.Build.0 = Debug|x64
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Debug|x86.ActiveCfg = Debug|Win32
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Debug|x86.Build.0 = Debug|Win32
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Release|x64.ActiveCfg = Release|x64
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Release|x64.Build.0 = Release|x64
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Release|x86.ActiveCfg = Release|Win32
+		{DE919D51-BD8D-4444-9EBB-6A4390B8CA1A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
