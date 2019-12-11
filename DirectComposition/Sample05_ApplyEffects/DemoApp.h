@@ -47,7 +47,7 @@ private:
     void OnRMouseDown();
 
 
-    HRESULT OnPaint();
+    HRESULT InitializeUI();
     HRESULT OnMouseMove(int xPos, int yPos);
     HRESULT SetVisualOpacity(IDCompositionVisual* pVisual, float opacity);
     HRESULT OnClientClick(int xPos, int yPos);

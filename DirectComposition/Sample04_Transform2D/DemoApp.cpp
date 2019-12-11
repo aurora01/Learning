@@ -2,8 +2,8 @@
 #include "framework.h"
 #include "DemoApp.h"
 
-#define IMAGE_WIDTH     100
-#define IMAGE_HEIGHT    66
+#define IMAGE_WIDTH     200
+#define IMAGE_HEIGHT    132
 
 WCHAR DemoApp::m_szClassName[MAX_PATH]{};
 WCHAR DemoApp::m_szTitle[MAX_PATH]{};
@@ -82,11 +82,6 @@ HRESULT DemoApp::Initialize()
         if (SUCCEEDED(hr))
         {
             hr = CreateResources();
-            if (SUCCEEDED(hr))
-            {
-                InitializeUI();
-            }
-
         }
 
         ShowWindow(m_hWnd, SW_SHOWNORMAL);
@@ -367,10 +362,10 @@ void DemoApp::OnLMouseDown()
 
         // Set the scaling factor to three for both the width and height. 
         if (SUCCEEDED(hr)) {
-            hr = spScaleTransform->SetScaleX(3.0f);
+            hr = spScaleTransform->SetScaleX(2.0f);
         }
         if (SUCCEEDED(hr)) {
-            hr = spScaleTransform->SetScaleY(3.0f);
+            hr = spScaleTransform->SetScaleY(2.0f);
         }
 
         // Add the scale transform to the transform group array.
@@ -387,13 +382,6 @@ void DemoApp::OnLMouseDown()
         POINT ptMouse = { };
         GetCursorPos(&ptMouse);
         ScreenToClient(m_hWnd, &ptMouse);
-        
-        // Move the visual 150 pixels to the right.
-        //hr = spTranslateTransform->SetOffsetX(150.0f);
-        //if (SUCCEEDED(hr)) {
-        //    hr = spTranslateTransform->SetOffsetY(0.0f);
-        //}
-
 
         // Move the visual 150 pixels to the right.
         hr = spTranslateTransform->SetOffsetX(ptMouse.x - m_xOffset);
@@ -434,16 +422,27 @@ void DemoApp::OnRMouseDown()
 
 LRESULT DemoApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    static bool bRepaint = true;
+
     switch (message)
     {
+    case WM_DISPLAYCHANGE:
+        bRepaint = true;
+        ::InvalidateRect(hWnd, NULL, FALSE);
+        break;
+    case WM_PAINT:
+        if (bRepaint)
+        {
+            InitializeUI();
+            bRepaint = false;
+        }
+        ::ValidateRect(hWnd, nullptr);
+        break;
     case WM_LBUTTONDOWN:
         OnLMouseDown();
         break;
     case WM_RBUTTONDOWN:
         OnRMouseDown();
-        break;
-    case WM_DISPLAYCHANGE:
-        ::InvalidateRect(hWnd, NULL, FALSE);
         break;
     case WM_CLOSE:
         DiscardResources();

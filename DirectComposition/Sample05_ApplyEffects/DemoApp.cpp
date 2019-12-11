@@ -270,7 +270,7 @@ HRESULT DemoApp::MyCreateGDIRenderedDCompSurface(HBITMAP hBitmap, IDCompositionS
     return hr;
 }
 
-HRESULT DemoApp::OnPaint()
+HRESULT DemoApp::InitializeUI()
 {
     HRESULT hr = S_OK;
     ComPtr<IDCompositionSurface> spSurface = nullptr;
@@ -467,6 +467,7 @@ HRESULT DemoApp::RotateVisual(IDCompositionVisual* pVisual, float degrees)
 
 LRESULT DemoApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    static bool bRepaint = true;
     LRESULT result{ 0 };
 
     switch (message)
@@ -474,18 +475,23 @@ LRESULT DemoApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
         result = 1;
         break;
+    case WM_DISPLAYCHANGE:
+        bRepaint = true;
+        ::InvalidateRect(hWnd, NULL, FALSE);
+        break;
+    case WM_PAINT:
+        if (bRepaint)
+        {
+            InitializeUI();
+            bRepaint = false;
+        }
+        ::ValidateRect(hWnd, nullptr);
+        break;
     case WM_LBUTTONDOWN:
         OnClientClick(LOWORD(lParam), HIWORD(lParam));
         break;
     case WM_MOUSEMOVE:
         OnMouseMove(LOWORD(lParam), HIWORD(lParam));
-        break;
-    case WM_PAINT:
-        OnPaint();
-        ValidateRect(hWnd, NULL);
-        break;
-    case WM_DISPLAYCHANGE:
-        ::InvalidateRect(hWnd, NULL, FALSE);
         break;
     case WM_CLOSE:
         DiscardResources();

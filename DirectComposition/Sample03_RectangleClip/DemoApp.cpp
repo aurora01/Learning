@@ -80,11 +80,6 @@ HRESULT DemoApp::Initialize()
         if (SUCCEEDED(hr))
         {
             hr = CreateResources();
-            if (SUCCEEDED(hr))
-            {
-                InitializeUI();
-            }
-
         }
 
         ShowWindow(m_hWnd, SW_SHOWNORMAL);
@@ -360,16 +355,27 @@ void DemoApp::OnRMouseDown()
 
 LRESULT DemoApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    static bool bRepaint = true;
+
     switch (message)
     {
+    case WM_DISPLAYCHANGE:
+        bRepaint = true;
+        ::InvalidateRect(hWnd, NULL, FALSE);
+        break;
+    case WM_PAINT:
+        if (bRepaint)
+        {
+            InitializeUI();
+            bRepaint = false;
+        }
+        ::ValidateRect(hWnd, nullptr);
+        break;
     case WM_LBUTTONDOWN:
         OnLMouseDown();
         break;
     case WM_RBUTTONDOWN:
         OnRMouseDown();
-        break;
-    case WM_DISPLAYCHANGE:
-        ::InvalidateRect(hWnd, NULL, FALSE);
         break;
     case WM_CLOSE:
         DiscardResources();

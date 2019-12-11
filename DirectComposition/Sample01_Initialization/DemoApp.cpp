@@ -74,17 +74,16 @@ HRESULT DemoApp::Initialize()
     hr = m_hWnd ? S_OK : E_FAIL;
     if (SUCCEEDED(hr))
     {
-        ShowWindow(m_hWnd, SW_SHOWNORMAL);
-        UpdateWindow(m_hWnd);
-
         // Initialize DirectComposition resources, such as the
         // device object and composition target object.
         hr = InitializeDirectCompositionDevice();
-    }
+        if (SUCCEEDED(hr))
+        {
+            hr = CreateResources();
+        }
 
-    if (SUCCEEDED(hr))
-    {
-        hr = CreateResources();
+        ShowWindow(m_hWnd, SW_SHOWNORMAL);
+        UpdateWindow(m_hWnd);
     }
 
     return hr;
