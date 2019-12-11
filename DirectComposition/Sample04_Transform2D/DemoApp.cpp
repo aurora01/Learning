@@ -380,12 +380,22 @@ void DemoApp::OnLMouseDown()
 
     if (SUCCEEDED(hr))
     {
+        POINT ptMouse = { };
+        GetCursorPos(&ptMouse);
+        ScreenToClient(m_hWnd, &ptMouse);
+        
         // Move the visual 150 pixels to the right.
-        hr = spTranslateTransform->SetOffsetX(150.0f);
-        if (SUCCEEDED(hr)) {
-            hr = spTranslateTransform->SetOffsetY(0.0f);
-        }
+        //hr = spTranslateTransform->SetOffsetX(150.0f);
+        //if (SUCCEEDED(hr)) {
+        //    hr = spTranslateTransform->SetOffsetY(0.0f);
+        //}
 
+
+        // Move the visual 150 pixels to the right.
+        hr = spTranslateTransform->SetOffsetX(ptMouse.x - m_xOffset);
+        if (SUCCEEDED(hr)) {
+            hr = spTranslateTransform->SetOffsetY(ptMouse.y - m_yOffset);
+        }
         // Add the translate transform to the transform group array.
         pTransforms[2] = spTranslateTransform.Get();
     }
